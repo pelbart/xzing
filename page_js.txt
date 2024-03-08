@@ -1,0 +1,53 @@
+const codeReader = new ZXing.BrowserQRCodeReader();
+let videoDevice = false;
+
+
+codeReader.getVideoInputDevices().then((videoInputDevices) => {
+    if (videoInputDevices.length >= 1) {
+            videoDevice = true;
+            startScanner();
+            document.getElementById("video-wrapper").style.display = "block";
+    }
+}).catch((err) => {
+    console.error(err)
+});
+
+function startScanner() {
+    if (videoDevice) {
+        console.log('ZXing code reader initialized');
+        codeReader.decodeOnceFromVideoDevice(undefined, 'video').then((result) => {
+            apex.item("P1_QRCODE").setValue(result.text);
+        }).catch((err) => {
+            console.error(err);
+            if (!err.toString().match(/^NotFoundException: Video stream has ended before.*$/)
+                && !err.toString().includes('Video stream has ended before')) {
+                apex.message.alert('Fehler beim Scanner: ' + err);
+            }
+        })
+        console.log(`Started continous decode from camera`);
+    }
+    if (!videoDevice) {
+        apex.item("P1_QRCODE").setFocus();
+    }
+}
+
+function resetScanner() {
+    apex.item("P1_QRCODE").setValue();
+    $("#sc_scanner").removeClass("scanner_error");
+    $("#sc_scanner").removeClass("scanner_okay");
+    if (videoDevice) {
+        codeReader.reset();
+    }
+}
+
+var supportsOrientationChange = "onorientationchange" in window,
+    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+
+
+
+function takePicture (p_barcode) {
+   apex.item("P1_QRCODE").setValue(p_barcode);
+   apex.server.process('setVal', {pageItems: '#P1_QRCODE'}, {dataType: "text"});
+}
+
+
