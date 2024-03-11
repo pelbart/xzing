@@ -8,8 +8,10 @@ codeReader.getVideoInputDevices().then((videoInputDevices) => {
         videoDevice = true;
         /*startScanner();
         document.getElementById("video-wrapper").style.display = "block";*/
+        document.getElementById("videoInputDevices").innerHTML = videoInputDevices.length;
     } else {
         console.log('videoInputDevices.length: ' + videoInputDevices.length);
+        document.getElementById("videoInputDevices").innerHTML = videoInputDevices.length;
     }
 }).catch((err) => {
     console.error(err)
