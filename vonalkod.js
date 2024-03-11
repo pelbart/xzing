@@ -6,8 +6,8 @@ codeReader.getVideoInputDevices().then((videoInputDevices) => {
     if (videoInputDevices.length >= 1) {
         console.log('videoInputDevices.length >= 1');
         videoDevice = true;
-        /*startScanner();
-        document.getElementById("video-wrapper").style.display = "block";*/
+        /*startScanner();*/
+        document.getElementById("videoWrapper").style.display = "block";
         document.getElementById("videoInputDevices").innerHTML = videoInputDevices.length;
     } else {
         console.log('videoInputDevices.length: ' + videoInputDevices.length);
