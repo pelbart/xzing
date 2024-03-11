@@ -6,7 +6,7 @@ codeReader.getVideoInputDevices().then((videoInputDevices) => {
     if (videoInputDevices.length >= 1) {
         console.log('videoInputDevices.length >= 1');
         videoDevice = true;
-        /*startScanner();*/
+        startScanner();
         document.getElementById("videoWrapper").style.display = "block";
         document.getElementById("videoInputDevices").innerHTML = videoInputDevices.length;
     } else {
@@ -16,3 +16,20 @@ codeReader.getVideoInputDevices().then((videoInputDevices) => {
 }).catch((err) => {
     console.error(err)
 });
+
+
+function startScanner() {
+
+    if (videoDevice) {
+        codeReader.decodeOnceFromVideoDevice(undefined, 'video').then((result) => {
+            document.getElementById("result").innerHTML = result.text;
+        }).catch((err) => {
+            console.error(err);
+            if (!err.toString().match(/^NotFoundException: Video stream has ended before.*$/)
+                && !err.toString().includes('Video stream has ended before')) {
+                    document.getElementById("result").innerHTML = err;
+            }
+        })
+    }
+
+}
