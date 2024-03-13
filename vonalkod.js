@@ -1,37 +1,39 @@
 let selectedDeviceId;
 const codeReader = new ZXing.BrowserMultiFormatReader();
-console.log('ZXing code reader initialized');
+console.log('ZXing könyvtár betöltve...');
 
 codeReader.listVideoInputDevices()
     .then((videoInputDevices) => {
         
-        const sourceSelect = document.getElementById('sourceSelect');
+        const sourceSelectElement = document.getElementById('sourceSelectElement');
+        const errorMessageElement = document.getElementById('errorMessageElement');
 
         if (videoInputDevices.length === 0) {
             
-            sourceSelect.style.display = 'none';
-
-            console.log("Van " + videoInputDevices.length + " kamera");
-            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
+            sourceSelectElement.style.display = 'none';
+            errorMessageElement.innerHTML = 'Nem található kamera...';
+            errorMessageElement.style.display = 'block';
+            
             return;
 
         } else if (videoInputDevices.length === 1) {
             
-            sourceSelect.style.display = 'none';
+            sourceSelectElement.style.display = 'none';
 
-            console.log("Van " + videoInputDevices.length + " kamera");
-            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
             selectedDeviceId = videoInputDevices[0].deviceId;
 
+            errorMessageElement.innerHTML = selectedDeviceId;
+            errorMessageElement.style.display = 'block';
+            
         } else if (videoInputDevices.length > 1) {
 
-            sourceSelect.style.display = 'none';
+            sourceSelectElement.style.display = 'block';
             
             videoInputDevices.forEach((element) => {
                 const sourceOption = document.createElement('option');
                 sourceOption.text = element.label;
                 sourceOption.value = element.deviceId;
-                sourceSelect.appendChild(sourceOption);
+                sourceSelectElement.appendChild(sourceOption);
             });
 
             console.log("Van " + videoInputDevices.length + " kamera");
