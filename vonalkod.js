@@ -22,7 +22,7 @@ codeReader.listVideoInputDevices()
 
             selectedDeviceId = videoInputDevices[0].deviceId;
 
-            errorMessageElement.innerHTML = selectedDeviceId;
+            errorMessageElement.innerHTML = videoInputDevices;
             errorMessageElement.style.display = 'block';
             
         } else if (videoInputDevices.length > 1) {
