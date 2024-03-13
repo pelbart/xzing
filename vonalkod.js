@@ -4,8 +4,22 @@ console.log('ZXing code reader initialized')
 
 codeReader.listVideoInputDevices()
     .then((videoInputDevices) => {
+        
+        if (videoInputDevices.length === 0) {
+            console.log("Van " + videoInputDevices.length + " kamera");
+            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
+        } else if (videoInputDevices.length === 1) {
+            console.log("Van " + videoInputDevices.length + " kamera");
+            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
+        } else if (videoInputDevices.length > 1) {
+            console.log("Van " + videoInputDevices.length + " kamera");
+            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
+        }
+
         const sourceSelect = document.getElementById('sourceSelect')
-        selectedDeviceId = videoInputDevices[0].deviceId
+        
+        
+        /*selectedDeviceId = videoInputDevices[0].deviceId
         if (videoInputDevices.length >= 1) {
             videoInputDevices.forEach((element) => {
                 const sourceOption = document.createElement('option')
@@ -20,7 +34,7 @@ codeReader.listVideoInputDevices()
 
             const sourceSelectPanel = document.getElementById('sourceSelectPanel')
             sourceSelectPanel.style.display = 'block'
-        }
+        }*/
 
         /*document.getElementById('startButton').addEventListener('click', () => {
             codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
