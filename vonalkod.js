@@ -1,22 +1,45 @@
 let selectedDeviceId;
-const codeReader = new ZXing.BrowserMultiFormatReader()
-console.log('ZXing code reader initialized')
+const codeReader = new ZXing.BrowserMultiFormatReader();
+console.log('ZXing code reader initialized');
 
 codeReader.listVideoInputDevices()
     .then((videoInputDevices) => {
         
-        if (videoInputDevices.length === 0) {
-            console.log("Van " + videoInputDevices.length + " kamera");
-            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
-        } else if (videoInputDevices.length === 1) {
-            console.log("Van " + videoInputDevices.length + " kamera");
-            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
-        } else if (videoInputDevices.length > 1) {
-            console.log("Van " + videoInputDevices.length + " kamera");
-            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
-        }
+        const sourceSelect = document.getElementById('sourceSelect');
 
-        const sourceSelect = document.getElementById('sourceSelect')
+        if (videoInputDevices.length === 0) {
+            
+            sourceSelect.style.display = 'none';
+
+            console.log("Van " + videoInputDevices.length + " kamera");
+            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
+            return;
+
+        } else if (videoInputDevices.length === 1) {
+            
+            sourceSelect.style.display = 'none';
+
+            console.log("Van " + videoInputDevices.length + " kamera");
+            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
+            selectedDeviceId = videoInputDevices[0].deviceId;
+
+        } else if (videoInputDevices.length > 1) {
+
+            sourceSelect.style.display = 'none';
+            
+            videoInputDevices.forEach((element) => {
+                const sourceOption = document.createElement('option');
+                sourceOption.text = element.label;
+                sourceOption.value = element.deviceId;
+                sourceSelect.appendChild(sourceOption);
+            });
+
+            console.log("Van " + videoInputDevices.length + " kamera");
+            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
+
+        };
+
+        //const sourceSelect = document.getElementById('sourceSelect')
         
         
         /*selectedDeviceId = videoInputDevices[0].deviceId
