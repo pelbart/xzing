@@ -20,9 +20,12 @@ codeReader.listVideoInputDevices()
             
             sourceSelectElement.style.display = 'none';
 
-            selectedDeviceId = videoInputDevices[0].deviceId;
+            videoInputDevices.forEach((element) => {
+                errorMessageElement.innerHTML = element.deviceId;
+                
+            });
 
-            errorMessageElement.innerHTML = videoInputDevices;
+            
             errorMessageElement.style.display = 'block';
             
         } else if (videoInputDevices.length > 1) {
