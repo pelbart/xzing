@@ -3,12 +3,18 @@ const codeReader = new ZXing.BrowserMultiFormatReader();
 const errorMessageElement = document.getElementById('errorMessageElement');
 console.log('ZXing könyvtár betöltve...');
 
+//Az eszközök listázáva előtt előbb meg kellene próbálni
+//engedélyt kérni a kamerához.
+
 codeReader.listVideoInputDevices()
     .then((videoInputDevices) => {
         
         const sourceSelectElement = document.getElementById('sourceSelectElement');
         
         if (videoInputDevices.length === 0) {
+            
+            //Az eszköz nem rendelkezik kamerával,
+            //ezért hibaüzenetet kell adni.
             
             sourceSelectElement.style.display = 'none';
             errorMessageElement.innerHTML = 'Nem található kamera...';
@@ -18,17 +24,13 @@ codeReader.listVideoInputDevices()
 
         } else if (videoInputDevices.length === 1) {
             
-            sourceSelectElement.style.display = 'none';
-
-            videoInputDevices.forEach((element) => {
-                errorMessageElement.innerHTML = element.deviceId;
-                
-            });
-
-            
-            errorMessageElement.style.display = 'block';
+            sourceSelectElement.style.display = 'none';           
             
         } else if (videoInputDevices.length > 1) {
+
+            //Az eszköz egynél több kamerával rendelkezik,
+            //ezért a kamerákat egy listába töltöm,
+            //ahonnan a felhasználó választhat.
 
             sourceSelectElement.style.display = 'block';
             
@@ -39,8 +41,10 @@ codeReader.listVideoInputDevices()
                 sourceSelectElement.appendChild(sourceOption);
             });
 
-            console.log("Van " + videoInputDevices.length + " kamera");
-            document.getElementById("log").innerHTML = "Van " + videoInputDevices.length + " kamera";
+            sourceSelectElement.onchange = () => {
+                selectedDeviceId = sourceSelectElement.value;
+                console.log(selectedDeviceId);
+            };
 
         };
 

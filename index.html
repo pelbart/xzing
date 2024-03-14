@@ -13,16 +13,24 @@
 
     <div class="container text-center">
 
-        <h1>Vonalkód olvasó</h1>
-
-        <select id="sourceSelectElement" class="form-select" style="display: none;">
-            <option selected>Válassz kamerát...</option>
-        </select>
-
+        <div class="row">
+            <div class="col">
+                <h1>Vonalkód olvasó</h1>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <select id="sourceSelectElement" class="form-select" style="display: none;">
+                    <option value="" selected>Válassz kamerát...</option>
+                </select>
+            </div>
+        </div>
+        
         <!--<h3>videoInputDevices:</h3>
         <p id="videoInputDevices"></p>  -->
 
-        <div id="videoWrapper" style="background-color: beige;"></div>
+        <!--<div id="videoWrapper" style="background-color: beige;"></div>-->
 
         <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
 
