@@ -37,9 +37,18 @@
         <p id="result"></p>
         <div id="errorMessageElement" class="alert alert-danger" role="alert" style="display: none;"></div>
 
-        <button type="button" class="btn btn-primary" onclick="startScan()">Start</button>
-        <button type="button" class="btn btn-primary" onclick="resetScan()">Reset</button>
-
+        <div class="row">
+            <div class="col p-1">
+                <button type="button" class="btn btn-primary" onclick="startScan()">Start</button>
+                <button type="button" class="btn btn-primary" onclick="resetScan()">Újra</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-1">
+                <button type="button" class="btn btn-primary" onclick="refreshList()">Kamera lista frissítése</button>    
+            </div>
+        </div>
+        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
