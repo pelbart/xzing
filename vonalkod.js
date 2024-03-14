@@ -1,13 +1,13 @@
 let selectedDeviceId;
 const codeReader = new ZXing.BrowserMultiFormatReader();
+const errorMessageElement = document.getElementById('errorMessageElement');
 console.log('ZXing könyvtár betöltve...');
 
 codeReader.listVideoInputDevices()
     .then((videoInputDevices) => {
         
         const sourceSelectElement = document.getElementById('sourceSelectElement');
-        const errorMessageElement = document.getElementById('errorMessageElement');
-
+        
         if (videoInputDevices.length === 0) {
             
             sourceSelectElement.style.display = 'none';
@@ -86,8 +86,9 @@ codeReader.listVideoInputDevices()
 
     })
     .catch((err) => {
-        console.error(err)
-        document.getElementById("result").innerHTML = err;
+        console.error(err);
+        errorMessageElement.innerHTML = err;
+        errorMessageElement.style.display = 'block';
     });
 
 
@@ -100,7 +101,8 @@ function startScan() {
         console.error(err);
         if (!err.toString().match(/^NotFoundException: Video stream has ended before.*$/)
             && !err.toString().includes('Video stream has ended before')) {
-                document.getElementById("result").innerHTML = err;
+                errorMessageElement.innerHTML = err;
+                errorMessageElement.style.display = 'block';
         }
     });
     
@@ -122,8 +124,6 @@ function resetScan() {
 
     codeReader.reset()
     document.getElementById('result').innerHTML = '';
-    console.log("resetScan");
-
-    
+    console.log("resetScan");   
 
 }
